@@ -7,4 +7,10 @@
 
 #### Календарь с событиями
 
-![calendar-page.png](https://github.com/sinventor/life_game/blob/master/screenshots/calendar-page.png)
+![calendar-page.png](https://github.com/sinventor/events_tracker/blob/master/screenshots/calendar-page.png)
+
+#### Новое событие
+![new-event.png](https://github.com/sinventor/events_tracker/blob/master/screenshots/new-event.png)
+
+#### Редактирование события
+![events-editing.png](https://github.com/sinventor/events_tracker/blob/master/screenshots/events-editing.png)
