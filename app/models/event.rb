@@ -17,6 +17,7 @@ class Event < ActiveRecord::Base
   after_destroy :delete_one_based_records, if: :is_requested_apply_for_all_one_based
   after_commit :generate_serial_records, on: :create, if: :end_date_of_series
   before_validation :set_end_date_when_missing_or_incorrect, if: :start_changed?
+  after_validation :ensure_end_date_greater_than_start
 
   # repeat_interval
   enum repeat_interval: {
@@ -54,9 +55,11 @@ class Event < ActiveRecord::Base
     if !end_date.present? || end_date < start
       self.end_date = self.end_date + (self.start - self.start_was)
     end
+  end
 
-    if !self.end_date_changed? && self.start_changed?
-      self.end_date = self.end_date + (self.start - self.start_was)
+  def ensure_end_date_greater_than_start
+    if !end_date.present? || end_date < start
+      end_date = start.end_of_day
     end
   end
 

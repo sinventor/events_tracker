@@ -12,10 +12,7 @@
     margin-top: 10px;
   }
   .offset-checkbox {
-    margin-left: 22px;
-    input[type=checkbox] {
-      margin-left: -26px;
-    }
+
   }
   .checkbox-label {
     font-size: 140%;
@@ -43,32 +40,13 @@
 
 .event-form {
   .offset-radio {
-    margin-left: 10px;
-    margin-bottom: 20px;
-    input[type=radio] {
-      margin-top: 1px;
-    }
-    .input-label {
-      font-size: 18px;
-      padding-left: 6px;
-      margin-top: 32px;
-    }
+
   }
   .second-option {
     margin-top: 18px;
   }
   .periodic-checkbox-wrapper {
-    margin-top: 40px;
-    margin-bottom: 26px;
-    
-    .offset-checkbox {
-      margin-left: 16px;
-      margin-top: -10px;
-      .periodic-input-label {
-        font-size: 20px;
-        padding-top: 42px;
-        padding-left: 12px;
-      }
-    }
+    margin-top: 4px;
+    margin-bottom: 2px;
   }
 }
