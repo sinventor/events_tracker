@@ -13,16 +13,16 @@ $ ->
 
   $('#endDate').datepicker(
     dateFormat: 'yy-mm-dd'
-    # onSelect: (dateText) ->
-    #   $('#startDate').datepicker('option', 'maxDate', $(@).datepicker('getDate'))
-    #   $('#endDateOfSeries').datepicker('option', 'minDate', $(@).datepicker('getDate'))
+    onSelect: (dateText) ->
+      $('#startDate').datepicker('option', 'maxDate', $(@).datepicker('getDate'))
+      $('#endDateOfSeries').datepicker('option', 'minDate', $(@).datepicker('getDate'))
   )
 
   $('#endDateOfSeries').datepicker(
     dateFormat: 'yy-mm-dd'
-    # onSelect: (dateText) ->
-    #   $('#startDate').datepicker('option', 'maxDate', $(@).datepicker('getDate'))
-    #   $('#endDate').datepicker('option', 'maxDate', $(@).datepicker('getDate'))
+    onSelect: (dateText) ->
+      $('#startDate').datepicker('option', 'maxDate', $(@).datepicker('getDate'))
+      $('#endDate').datepicker('option', 'maxDate', $(@).datepicker('getDate'))
   )
   $('#startTime').val('15:00')
   $('#endTime').val('15:20')

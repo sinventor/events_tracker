@@ -72,7 +72,8 @@ $(function() {
       newData.event.end = moment.utc(date.end._d).format('YYYY-MM-DD HH:mm:ss');
     }
     return EventTrackerApp.ajaxRequests.update('/events', date.id, newData, {
-      update_same: true
+      update_same: true,
+      recompute: true
     }).then(function(data) {
       return $calendar.fullCalendar('refetchEvents');
     });

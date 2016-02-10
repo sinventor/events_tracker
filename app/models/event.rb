@@ -11,12 +11,14 @@ class Event < ActiveRecord::Base
   attr_accessor :end_date_of_series
   attr_accessor :has_bulk_effect
   attr_accessor :test_attr
+  attr_accessor :needed_recompute_end_date
 
   # callbacks
   before_save :update_one_based_records, on: :update, if: :is_requested_apply_for_all_one_based
   after_destroy :delete_one_based_records, if: :is_requested_apply_for_all_one_based
   after_commit :generate_serial_records, on: :create, if: :end_date_of_series
-  before_validation :set_end_date_when_missing_or_incorrect, if: :start_changed?
+  before_validation :recompute_end_date_by_start_delta, if: :needed_recompute_end_date
+
   after_validation :ensure_end_date_greater_than_start
 
   # repeat_interval
@@ -51,15 +53,15 @@ class Event < ActiveRecord::Base
 
   private
 
-  def set_end_date_when_missing_or_incorrect
-    if !end_date.present? || end_date < start
+  def recompute_end_date_by_start_delta
+    if self.start_changed?
       self.end_date = self.end_date + (self.start - self.start_was)
     end
   end
 
   def ensure_end_date_greater_than_start
     if !end_date.present? || end_date < start
-      end_date = start.end_of_day
+      self.end_date = start.end_of_day
     end
   end
 
@@ -83,14 +85,11 @@ class Event < ActiveRecord::Base
   end
 
   def update_one_based_records
-    puts "update one vased"
     one_based_events = Event.with_same_base_except_self(self)
-    puts one_based_events.map(&:title)
 
     one_based_events.each do |evt|
-      next if evt.id == self.id
       evt.start = recompute_start(evt, self.start_was, self.start) if self.start_changed?
-      # evt.end_date = recompute_end(evt, self.end_date_was, self.end_date)
+
       if self.end_date_changed?
         evt.end_date = recompute_end(evt, self.end_date_was, self.end_date)
       elsif evt.start_changed? && !self.end_date_changed?

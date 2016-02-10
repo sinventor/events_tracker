@@ -28,7 +28,7 @@ window.utils = {
     return this.checkHoursCorrectness(hoursAndMinutes[0]) && this.checkMinutesCorrectness(hoursAndMinutes[1]);
   },
   formatBaseDate: function(date) {
-    return moment(date).format('YYYY/MM/DD');
+    return moment(date).format('YYYY-MM-DD');
   },
   formatBaseTime: function(date) {
     return moment(date).format('HH:mm');

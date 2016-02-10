@@ -13,10 +13,18 @@ $(function() {
     }
   });
   $('#endDate').datepicker({
-    dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd',
+    onSelect: function(dateText) {
+      $('#startDate').datepicker('option', 'maxDate', $(this).datepicker('getDate'));
+      return $('#endDateOfSeries').datepicker('option', 'minDate', $(this).datepicker('getDate'));
+    }
   });
   $('#endDateOfSeries').datepicker({
-    dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd',
+    onSelect: function(dateText) {
+      $('#startDate').datepicker('option', 'maxDate', $(this).datepicker('getDate'));
+      return $('#endDate').datepicker('option', 'maxDate', $(this).datepicker('getDate'));
+    }
   });
   $('#startTime').val('15:00');
   $('#endTime').val('15:20');

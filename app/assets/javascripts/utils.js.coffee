@@ -15,6 +15,6 @@ window.utils =
     return false if hoursAndMinutes.length != 2
     @checkHoursCorrectness(hoursAndMinutes[0]) && @checkMinutesCorrectness(hoursAndMinutes[1])
   formatBaseDate: (date) ->
-    moment(date).format('YYYY/MM/DD')
+    moment(date).format('YYYY-MM-DD')
   formatBaseTime: (date) ->
     moment(date).format('HH:mm')

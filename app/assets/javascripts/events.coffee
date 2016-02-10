@@ -55,7 +55,7 @@ $ ->
     newData.event.start = moment.utc(date.start._d).format('YYYY-MM-DD HH:mm:ss')
     newData.event.end = moment.utc(date.end._d).format('YYYY-MM-DD HH:mm:ss') if date.end
 
-    EventTrackerApp.ajaxRequests.update('/events', date.id, newData, update_same: true)
+    EventTrackerApp.ajaxRequests.update('/events', date.id, newData, update_same: true, recompute: true)
           .then (data) ->
             $calendar.fullCalendar('refetchEvents')
 

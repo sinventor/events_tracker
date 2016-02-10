@@ -40,6 +40,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     @event.is_requested_apply_for_all_one_based = true if params[:update_same] && ['t', 'true'].include?(params[:update_same])
+    @event.needed_recompute_end_date = true if params[:recompute] && ['t', 'true'].include?(params[:recompute])
 
     respond_to do |format|
       if @event.update(event_params)
@@ -58,7 +59,7 @@ class EventsController < ApplicationController
     @event.is_requested_apply_for_all_one_based = true if params[:delete_same] && ['t', 'true'].include?(params[:delete_same])
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to events_url, notice: 'Событие удалено.' }
       format.json { head :no_content }
     end
   end
