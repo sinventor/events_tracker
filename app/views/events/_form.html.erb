@@ -1,0 +1,59 @@
+<div id="evForm" class="event-form" role="dialog">
+  <form role="form" id="newEventForm">
+    <div class="form-group">              
+      <div class="new-event-title">
+        <label for="title">Название</label>
+        <input type="text" class="form-control" id="title">
+      </div>
+      <div class="title_errors field_error"></div>
+    </div>
+
+    <div class="form-group">
+      <div class="new-event-start_date">
+        <label for="startDate">Дата</label>
+        <input type="text" id="startDate" class="form-control">
+      </div>
+      <div class="start_date_errors field_error"></div>
+    </div>
+
+    <div class="form-group" id="startTime">
+      <div class="start_time_errors"></div>
+      <div class="new-event-start_date">
+        <label for="startTime">Время</label>
+        <input type="text" class="form-control" id="startTime">
+      </div>
+    </div>
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="" checked id="isPeriodic">
+        Повторяющаяся?
+      <label>
+    </div>
+
+    <div class="form-group end-date-group" style="display: block">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="new-event-end_date">
+            <label for="endDate">Дата окончания cерии</label>
+            <input type="text" class="form-control" id="endDate">
+          </div>
+        </div>
+        <div class="col-sm-4 col-sm-offset-2">
+          <div class="repeat_interval_errors"></div>
+          <div class="new-event-repeat_interval">
+            <%= label_tag 'repeatInterval', 'Интервал повтора' %>
+            <%= select_tag 'repeatInterval', options_for_select(Event.repeat_intervals.to_a), prompt: 'Выберите интервал', class: "form-control" %>
+          </div>
+        </div> 
+      </div>  
+    </div>   
+
+    <div class="start_date_errors"></div>
+    <div class="actions">
+      <button id="cnaheTimeBtn" class="pull-left btn btn-default action-btn">Установить время</button>
+      <input class="btn btn-success action-btn" id="saveEvent" type="submit" value="Сохранить">
+      <button type="button" class="btn btn-default action-btn" data-dismiss="modal">Закрыть</button>
+    </div>
+  </form>
+</div>

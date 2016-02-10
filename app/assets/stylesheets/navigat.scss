@@ -1,0 +1,30 @@
+.top-nav {
+  font-size: 18px;
+  margin-top: 6px;
+  .container {
+    .navbar-header {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .nav-enter-signup {
+      float: right;
+    }
+
+    .nav-link {
+      line-height: 50px;
+      margin: 0 6px 0 18px;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: none;
+        font-size: 120%;
+      }
+    }
+
+    .header-nav-links {
+      display: inline-block;
+      margin: 0 2em;
+    }
+  }
+}

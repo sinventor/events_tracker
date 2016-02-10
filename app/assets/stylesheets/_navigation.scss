@@ -1,0 +1,17 @@
+$nav-link-color: #197ad2;
+$nav-link-background-color: #c092fd;
+
+.nav.navbar-nav {
+  .list-nav-link {
+    font-size: 18px;
+    margin-right: 6px;
+    background-color: $nav-link-background-color;
+    color: $nav-link-color;
+    &:hover {
+      color: darken($nav-link-color, 12%);
+      background-color: lighten($nav-link-background-color, 26%);
+    }
+    -webkit-transition: color 0.5s;
+    transition: all 0.5s;
+  }
+}

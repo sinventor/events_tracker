@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: events_tracker_development
+  username: rushan
+  password: rushan12345
+  host: localhost
+
+test:
+  <<: *default
+  database: events_tracker_test
+  username: rushan
+  password: rushan12345
+  host: localhost
+
+production:
+  <<: *default
+  database: events_tracker_production
+  username: events_tracker
+  password: <%= ENV['EVENT_TRACKER_DATABASE_PASSWORD'] %>

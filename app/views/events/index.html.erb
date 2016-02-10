@@ -1,0 +1,140 @@
+<div id="userCalendar"></div>
+
+<div id="popupEvent" class="new-event modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="popupEventHeader">Новое событие</h3>
+      </div>
+      <div class="modal-title"></div>
+      <form role="form" id="eventForm" class="event-form">
+        <div class="modal-body">
+          <div class="form-group">              
+            <div class="new-event-title">
+              <label for="title">Название</label>
+              <input type="text" class="form-control" id="title">
+            </div>
+            <div class="title_errors field_error"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="new-event-start_date">
+                  <label for="startDate">Дата начала</label>
+                  <input type="text" class="form-control" id="startDate">
+                  <div class="start_date_errors field_error"></div>
+                </div>
+              </div>
+              <div class="col-sm-4 col-sm-offset-2">
+                <div class="new-event-start_date">
+                  <label for="startTime">Время начала</label>
+                  <input type="text" class="form-control" id="startTime">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="new-event-end_date">
+                  <label for="endDate">Дата окончания</label>
+                  <input type="text" class="form-control" id="endDate">
+                  <div class="start_date_errors field_error"></div>
+                </div>
+              </div>
+                
+              <div class="col-sm-4 col-sm-offset-2">
+                <div class="new-event-end_time">
+                  <label for="endTime">Время окончания</label>
+                  <input type="text" class="form-control" id="endTime">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="periodic-checkbox-wrapper">
+            <div class="checkbox offset-checkbox">
+              <label>
+                <input type="checkbox" value="true" id="markedAsPeriodic">
+                <span class="periodic-input-label"> Повторяющееся?</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group hide in end-series-date-area">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="new-event-end_date">
+                  <label for="endDateOfSeries">Дата окончания серии</label>
+                  <input type="text" class="form-control" id="endDateOfSeries">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="new-event-repeat_interval">
+                  <%= label_tag 'repeatInterval', 'Интервал повтора' %>
+                  <%= select_tag 'repeatInterval', options_for_select(Event.repeat_intervals.to_a), prompt: 'Выберите интервал', class: "form-control" %>
+                </div>
+                <div class="repeat_interval_errors"></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group hide in bulk-update-area">
+            <div class="radio offset-radio">
+              <label>           
+                <input name="updateOptions" id="updateOnlyThis" type="radio" value="onlyThis" />
+                <span class="input-label">Обновить только этот экземпляр</span>
+              </label>
+            </div>
+            <div class="radio offset-radio">
+              <label>
+                <input name="updateOptions" id="updateAll" value="all" type="radio" checked>
+                <span class="input-label">Обновить все элементы из этой серии</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="deleteEventBtn" class="pull-left btn btn-danger hide">Удалить</button>
+          <input class="btn btn-success" id="saveEvent" type="submit" value="Сохранить">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="popupDeleteOneBasedModal" class="delete-event modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h1 class="modal-title">Удаление события</h1>
+      </div>
+      <div class="modal-body">
+        <form class="event-form">
+          <div class="radio offset-radio">
+            <label>
+              <input name="deleteOptions" id="deleteOnlyThis" type="radio" value="onlyThis">
+              <span class="input-label">Удалить только этот экземпляр</span>
+            </label>
+          </div>
+          <div class="second-option">
+            <div class="radio offset-radio">
+              <label>
+                <input name="deleteOptions" id="deleteAll" value="all" type="radio" checked>
+                <span class="input-label">Удалить все элементы из этой серии</span>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="deleteApplyBtn" type="button" class="btn btn-danger">Применить</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

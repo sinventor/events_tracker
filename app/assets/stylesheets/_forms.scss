@@ -1,0 +1,74 @@
+.sign-in-form {
+  width: 460px;
+  margin: 0 auto;
+  .list-of-variants {
+    margin-top: 26px; 
+    .transition-link {
+      margin-left: 30px;
+    }
+  }
+
+  .main-action {
+    margin-top: 10px;
+  }
+  .offset-checkbox {
+    margin-left: 22px;
+    input[type=checkbox] {
+      margin-left: -26px;
+    }
+  }
+  .checkbox-label {
+    font-size: 140%;
+    padding-top: 14px;
+    padding-left: 12px;
+  }
+}
+
+.sign-up-form {
+  @extend .sign-in-form;
+}
+
+.profile-form {
+  @extend .sign-in-form;
+}
+
+.descr-label {
+  font-size: 110%;
+}
+
+.notice-area {
+  width: 440px;
+  margin: 0 auto;
+}
+
+.event-form {
+  .offset-radio {
+    margin-left: 10px;
+    margin-bottom: 20px;
+    input[type=radio] {
+      margin-top: 1px;
+    }
+    .input-label {
+      font-size: 18px;
+      padding-left: 6px;
+      margin-top: 32px;
+    }
+  }
+  .second-option {
+    margin-top: 18px;
+  }
+  .periodic-checkbox-wrapper {
+    margin-top: 40px;
+    margin-bottom: 26px;
+    
+    .offset-checkbox {
+      margin-left: 16px;
+      margin-top: -10px;
+      .periodic-input-label {
+        font-size: 20px;
+        padding-top: 42px;
+        padding-left: 12px;
+      }
+    }
+  }
+}

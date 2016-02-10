@@ -1,0 +1,12 @@
+<style>
+  .event-near {
+    color: #e9a012;
+    font-size: 190%;
+  }
+</style>
+<div class="event-near" style="font-size: 190%">
+  <p><%= @user.full_name || @user.email %>, напоминание от <%= root_url %> EventsTracker.</p>
+  <p style="color: red">
+    Событие <%= @event.title %> скоро наступает (время наступления <%= @event.start.to_s %>
+  </p>
+</div>

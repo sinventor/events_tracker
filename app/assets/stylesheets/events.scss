@@ -1,0 +1,12 @@
+.event-form {
+  width: 596px;
+  margin: 0 auto;
+  .actions {
+    margin-left: 22px;
+    .action-btn {
+      margin-left: 20px;
+      @extend .pull-right;
+      @extend .btn-danger;
+    }
+  }
+}

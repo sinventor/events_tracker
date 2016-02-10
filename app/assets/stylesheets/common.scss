@@ -1,0 +1,35 @@
+.field_error {
+  color: red;
+  font-size: 0.9em;
+}
+
+.small-logo-anim {
+  &:hover {
+    animation: change-orient 4s ease infinite;
+  }
+}
+
+.logo-text {
+  &:hover {
+    animation: letter-shr 7s ease infinite;
+    fill: #e90192;
+  }
+}
+
+@keyframes change-orient {
+  10% {
+    transform: translate(10px, -20px) rotate(20deg)
+  }
+  30% {
+    transform: translate(-20px, 20px) rotate(60deg)
+  }
+  60% {
+    transform: translate(10px, -20px) rotatee(120deg)
+  }
+}
+
+@keyframes letter-shr {
+  30% {
+    transform: translateY(10px)
+  }
+}

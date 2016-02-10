@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="70">
+  <g>
+    <circle id="smallLogoCirc" cx="14" cy="14" r="12" style="stroke:#006600" fill="#0fa9b5"/>
+    <path id="smallLogoPath" class="small-logo-anim" d="M10 8 L22 14 L16 19 L25 23 L9 23 Z" fill="#c901c5" />
+  </g>
+  <g>
+    <text class="logo-text" x="30" y="18" style="font: 16px" fill="#90c6d8">ETR</text>
+  </g>
+  <animate 
+    xlink:href="#smallLogoCirc"
+    from="#01d9f1"
+    to="#006600"
+    attributeName="fill"
+    begin="pathAnim.begin"
+    dur="1.6s"
+    fill="freeze" />
+  <animate 
+    xlink:href="#smallLogoPath"
+    from="#01d901"
+    to="#006600"
+    attributeName="fill"
+    begin="click"
+    dur="5.6s"
+    fill="freeze"
+    id="pathAnim" />
+</svg>
