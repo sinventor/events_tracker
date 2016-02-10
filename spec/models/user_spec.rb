@@ -1,20 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe '' do
-  end
-  describe "generating one based records" do
+  describe 'creating new records' do
     let!(:user) { build(:user) }
-    # let(:user2) { create(:user) }
+    let(:invalid_user) { create(:invalid_user) }
 
-    it 'should create ' do
+    it 'user should valid' do
+      expect(user.valid?).to eq(true)
     end
 
-    it "should create new records" do
-      # puts user.inspect
-      # puts user2.inspect
-      expect(user.valid?).to eq(true)
-      # expect { user.email }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Password confirmation doesn't match Password")
+    it 'should raise error when password confirmation not match' do
+      expect { invalid_user }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Password confirmation doesn't match Password")
     end
   end
 end

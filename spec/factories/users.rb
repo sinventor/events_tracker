@@ -7,5 +7,10 @@ FactoryGirl.define do
     email
     password 'securepassword'
     password_confirmation 'securepassword'
+
+    factory :invalid_user do
+      password_confirmation 'notmatchingpass'
+    end
+
   end
 end
