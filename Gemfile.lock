@@ -50,6 +50,11 @@ GEM
     autoprefixer-rails (6.3.1)
       execjs
       json
+    backbone-on-rails (1.2.0.0)
+      eco
+      ejs
+      jquery-rails
+      railties
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -91,6 +96,12 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    eco (1.0.0)
+      coffee-script
+      eco-source
+      execjs
+    eco-source (1.1.0.rc.1)
+    ejs (1.1.1)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -233,6 +244,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers!
+  backbone-on-rails
   better_errors
   bootstrap-sass
   byebug

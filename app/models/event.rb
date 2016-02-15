@@ -1,16 +1,13 @@
 class Event < ActiveRecord::Base
   
-  validates_presence_of :title, :start, message: 'не может быть пустым'
+  validates_presence_of :title, :start
 
   belongs_to :user
 
   # virtual attributes
   attr_accessor :is_requested_apply_for_all_one_based
   attr_accessor :is_requested_delete_one_based
-  attr_accessor :update_base_recs
   attr_accessor :end_date_of_series
-  attr_accessor :has_bulk_effect
-  attr_accessor :test_attr
   attr_accessor :needed_recompute_end_date
 
   # callbacks
@@ -32,10 +29,6 @@ class Event < ActiveRecord::Base
   # scopes
   scope :with_same_base, -> (base) { where("base_id = :item_id OR base_id IS NOT NULL AND base_id = :base_id OR id = :base_id", item_id: base.id, base_id: base.base_id) }
   scope :with_same_base_except_self, -> (base) { with_same_base(base).where.not(id: base.id) }
-  scope :with_same_base_for_user, -> (base, user) { user.events.where("base_id = :item_id OR base_id IS NOT NULL AND base_id = :base_id", item_id: base.id, base_id: base.base_id) }
-  scope :find_items_based_on, -> (src) { where("base_id = ?", src.id) }
-  scope :find_next_items_by_base, -> (src) { where("base_id = ? AND start > ?", src.base_id, src.start) }
-  scope :find_next_items_by_based_on, -> (src) { where("base_id = ?", src.id) }
 
   def generate_serial_records
     return if !repeat_interval || base_id.present? || !end_date_of_series
@@ -63,10 +56,6 @@ class Event < ActiveRecord::Base
     if !end_date.present? || end_date < start
       self.end_date = start.end_of_day
     end
-  end
-
-  def set_bulk_effect
-    self.has_bulk_effect = true
   end
 
   def generate_records_until(base, end_date_of_series, incr_period)

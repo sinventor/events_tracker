@@ -12,5 +12,12 @@ FactoryGirl.define do
       password_confirmation 'notmatchingpass'
     end
 
+    factory :user_with_full_name do
+      full_name 'Jack Brew'
+    end
+
+    factory :user_without_full_name do
+      full_name nil
+    end
   end
 end

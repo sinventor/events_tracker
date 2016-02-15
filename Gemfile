@@ -14,6 +14,7 @@ gem 'devise'
 gem 'jbuilder', '~> 2.0'
 gem 'puma'
 gem 'whenever', :require => false
+gem 'backbone-on-rails'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
