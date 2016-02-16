@@ -100,19 +100,32 @@ $ ->
     console.log(currentEvent.toJSON())
     if currentEvent.isNew()
       seriesEnd = currentEvent.get('series_end')
-      if seriesEnd
-        currentEvent.save(null, url: currentEvent.url() + "?series_end=#{seriesEnd}").then (d) ->
-          console.log(d)
-      else
-        currentEvent.save().then (d) ->
-          console.log(d)         
+      newUrl = currentEvent.url()
+      newUrl += "?series_end=#{seriesEnd}" if seriesEnd
+      currentEvent.save(null, 
+        url: newUrl
+      ).then (d) ->
+          currentEvent = null 
+          refetchEvents()
+          $('#popupEvent').modal('hide')
+      , (d) ->
+          console.log('errr', d)
+          _.each d.responseJSON.errors, (fieldErrors, fieldName) ->
+            $(".#{fieldName}_errors").append($('span')).text(fieldErrors.join(', '))       
     else
-      console.log currentEvent.url()
-
-    currentEvent = null 
-    refetchEvents()
-    $('#popupEvent').modal('hide')
-
+      newUrl = currentEvent.url()
+      newUrl += "?update_same=true" if currentEvent.get('has_same') && $('input[name=updateOptions]:checked').val() == 'all'
+      currentEvent.save(null, 
+        url: newUrl
+      ).then (d) ->
+          currentEvent = null 
+          refetchEvents()
+          $('#popupEvent').modal('hide')
+      , (d) ->
+          console.log('errr', d)
+          _.each d.responseJSON.errors, (fieldErrors, fieldName) ->
+            $(".#{fieldName}_errors").append($('span')).text(fieldErrors.join(', '))
+    
   $('#deleteEventBtn').on 'click', (e) ->
     e.preventDefault()
     if currentEvent.get('has_same') && $('input[name=updateOptions]:checked').val() == 'all'

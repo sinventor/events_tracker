@@ -107,7 +107,7 @@ $(function() {
     dateFormat: 'yy-mm-dd'
   });
   $('#eventForm').on('submit', function(e) {
-    var seriesEnd;
+    var newUrl, seriesEnd;
     e.preventDefault();
     currentEvent.set('title', $('#title').val());
     currentEvent.set('startDate', $('#startDate').val());
@@ -121,23 +121,40 @@ $(function() {
     console.log(currentEvent.toJSON());
     if (currentEvent.isNew()) {
       seriesEnd = currentEvent.get('series_end');
+      newUrl = currentEvent.url();
       if (seriesEnd) {
-        currentEvent.save(null, {
-          url: currentEvent.url() + ("?series_end=" + seriesEnd)
-        }).then(function(d) {
-          return console.log(d);
-        });
-      } else {
-        currentEvent.save().then(function(d) {
-          return console.log(d);
-        });
+        newUrl += "?series_end=" + seriesEnd;
       }
+      return currentEvent.save(null, {
+        url: newUrl
+      }).then(function(d) {
+        currentEvent = null;
+        refetchEvents();
+        return $('#popupEvent').modal('hide');
+      }, function(d) {
+        console.log('errr', d);
+        return _.each(d.responseJSON.errors, function(fieldErrors, fieldName) {
+          return $("." + fieldName + "_errors").append($('span')).text(fieldErrors.join(', '));
+        });
+      });
     } else {
-      console.log(currentEvent.url());
+      newUrl = currentEvent.url();
+      if (currentEvent.get('has_same') && $('input[name=updateOptions]:checked').val() === 'all') {
+        newUrl += "?update_same=true";
+      }
+      return currentEvent.save(null, {
+        url: newUrl
+      }).then(function(d) {
+        currentEvent = null;
+        refetchEvents();
+        return $('#popupEvent').modal('hide');
+      }, function(d) {
+        console.log('errr', d);
+        return _.each(d.responseJSON.errors, function(fieldErrors, fieldName) {
+          return $("." + fieldName + "_errors").append($('span')).text(fieldErrors.join(', '));
+        });
+      });
     }
-    currentEvent = null;
-    refetchEvents();
-    return $('#popupEvent').modal('hide');
   });
   return $('#deleteEventBtn').on('click', function(e) {
     e.preventDefault();
