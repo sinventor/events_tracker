@@ -36,6 +36,9 @@ initializeCalendar = ->
         currentEvent.set('has_same', true) if _.any(data)
         $('#popupEvent').modal('show')
 
+    eventDrop: (data, allDay) ->
+      externalEventDropped(data, allDay, @)
+
 fillEventModalFields = ->
   if currentEvent
     $('#title').val(currentEvent.get('title'))
@@ -56,11 +59,24 @@ flushEventModalFields = ->
   $('#endDate').val('')
   $('#endTime').val('')
   $('#markedAsPeriodic').prop('checked', false)
+  $('#endDateOfSeries').val('')
+  $('#repeatInterval option[value=""]').prop('selected', 'selected')
   $('.end-series-date-area').addClass('hide')
   $('.bulk-update-area').addClass('hide')
 
 refetchEvents = ->
   $('#userCalendar').fullCalendar('refetchEvents')
+
+externalEventDropped = (data, allDay, externalEvent) ->
+  $.ajax
+    url: "/events/#{data.id}?recompute=t&update_same=t"
+    dataType: 'json'
+    type: 'PUT'
+    data: 
+      event:
+        start: moment.utc(data.start._d).format('YYYY-MM-DD HH:mm')
+    success: (d) ->
+      refetchEvents()
 
 $ ->
   initializeCalendar() if EventsTracker.Services.isUserSignIn()
@@ -83,9 +99,8 @@ $ ->
       $('#startDate').datepicker('option', 'maxDate', $(@).datepicker('getDate'))
       $('#endDateOfSeries').datepicker('option', 'minDate', $(@).datepicker('getDate'))
 
-  $('#endDateOfSeries').datepicker(
+  $('#endDateOfSeries').datepicker
     dateFormat: 'yy-mm-dd'
-  )
 
   $('#eventForm').on 'submit', (e) ->
     e.preventDefault()
@@ -97,34 +112,23 @@ $ ->
     if $('#markedAsPeriodic').prop('checked')
       currentEvent.set('series_end', $('#endDateOfSeries').val())
       currentEvent.set('repeat_interval', $('#repeatInterval').val())
-    console.log(currentEvent.toJSON())
+    newUrl = currentEvent.url()
+
     if currentEvent.isNew()
-      seriesEnd = currentEvent.get('series_end')
-      newUrl = currentEvent.url()
-      newUrl += "?series_end=#{seriesEnd}" if seriesEnd
-      currentEvent.save(null, 
-        url: newUrl
-      ).then (d) ->
-          currentEvent = null 
-          refetchEvents()
-          $('#popupEvent').modal('hide')
-      , (d) ->
-          console.log('errr', d)
-          _.each d.responseJSON.errors, (fieldErrors, fieldName) ->
-            $(".#{fieldName}_errors").append($('span')).text(fieldErrors.join(', '))       
+      seriesEnd = currentEvent.get('series_end')      
+      newUrl += "?series_end=#{seriesEnd}" if seriesEnd   
     else
-      newUrl = currentEvent.url()
       newUrl += "?update_same=true" if currentEvent.get('has_same') && $('input[name=updateOptions]:checked').val() == 'all'
-      currentEvent.save(null, 
-        url: newUrl
-      ).then (d) ->
-          currentEvent = null 
-          refetchEvents()
-          $('#popupEvent').modal('hide')
-      , (d) ->
-          console.log('errr', d)
-          _.each d.responseJSON.errors, (fieldErrors, fieldName) ->
-            $(".#{fieldName}_errors").append($('span')).text(fieldErrors.join(', '))
+
+    currentEvent.save(null,
+      url: newUrl
+    ).then (d) ->
+        currentEvent = null 
+        refetchEvents()
+        $('#popupEvent').modal('hide')
+    , (d) ->
+        _.each d.responseJSON.errors, (fieldErrors, fieldName) ->
+          $(".#{fieldName}_errors").append($('span')).text(fieldErrors.join(', '))
     
   $('#deleteEventBtn').on 'click', (e) ->
     e.preventDefault()

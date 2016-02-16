@@ -47,6 +47,7 @@ class Event < ActiveRecord::Base
   private
 
   def recompute_end_date_by_start_delta
+    puts "DEALING"
     if self.start_changed?
       self.end_date = self.end_date + (self.start - self.start_was)
     end
