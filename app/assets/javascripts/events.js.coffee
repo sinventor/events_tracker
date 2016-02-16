@@ -63,6 +63,7 @@ flushEventModalFields = ->
   $('#repeatInterval option[value=""]').prop('selected', 'selected')
   $('.end-series-date-area').addClass('hide')
   $('.bulk-update-area').addClass('hide')
+  $('.field_error').empty()
 
 refetchEvents = ->
   $('#userCalendar').fullCalendar('refetchEvents')
@@ -126,9 +127,10 @@ $ ->
         currentEvent = null 
         refetchEvents()
         $('#popupEvent').modal('hide')
-    , (d) ->
-        _.each d.responseJSON.errors, (fieldErrors, fieldName) ->
-          $(".#{fieldName}_errors").append($('span')).text(fieldErrors.join(', '))
+    ,
+    (d) ->
+      _.each d.responseJSON.errors, (fieldErrors, fieldName) ->
+        $(".#{fieldName}_errors").append('<span>' + fieldErrors.join(', ') + '</span>')
     
   $('#deleteEventBtn').on 'click', (e) ->
     e.preventDefault()

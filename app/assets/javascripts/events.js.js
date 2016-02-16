@@ -75,7 +75,8 @@ flushEventModalFields = function() {
   $('#endDateOfSeries').val('');
   $('#repeatInterval option[value=""]').prop('selected', 'selected');
   $('.end-series-date-area').addClass('hide');
-  return $('.bulk-update-area').addClass('hide');
+  $('.bulk-update-area').addClass('hide');
+  return $('.field_error').empty();
 };
 
 refetchEvents = function() {
@@ -158,7 +159,7 @@ $(function() {
       return $('#popupEvent').modal('hide');
     }, function(d) {
       return _.each(d.responseJSON.errors, function(fieldErrors, fieldName) {
-        return $("." + fieldName + "_errors").append($('span')).text(fieldErrors.join(', '));
+        return $("." + fieldName + "_errors").append('<span>' + fieldErrors.join(', ') + '</span>');
       });
     });
   });
