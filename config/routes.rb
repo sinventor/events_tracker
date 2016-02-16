@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   }
 
   resources :events do
-    with_options(constarints: { format: :json }, on: :collection) do
-      get 'get_same'
-    end
+    # with_options(constarints: { format: :json }, on: :collection) do
+    get 'get_same', on: :collection
+    # end
   end
 
   get 'home/index'

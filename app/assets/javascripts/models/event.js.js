@@ -20,6 +20,11 @@ EventsTracker.Models.Event = Backbone.Model.extend({
     result += ' ' + time;
     return result;
   },
+  parse: function(r, op) {
+    return {
+      title: 'Op[s'
+    };
+  },
   toJSON: function() {
     return {
       title: this.get('title'),

@@ -17,6 +17,8 @@ EventsTracker.Models.Event = Backbone.Model.extend
     result = date
     result += ' ' + time
     result
+  parse: (r, op) ->
+    title: 'Op[s'
 
   toJSON: ->
     title: @get('title')
